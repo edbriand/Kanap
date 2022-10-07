@@ -45,13 +45,3 @@ async function normalizeItemsArray(array) {
 export async function getItems() {
     return normalizeItemsArray(itemsArray);
 }
-
-export async function getItem(id) {
-    const wantedItem = normalizeItemsArray(itemsArray).map((item) => {
-        if (item.id === id) {
-            return item;
-        }
-        return null;
-    });
-    return wantedItem;
-}
