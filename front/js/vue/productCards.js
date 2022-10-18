@@ -21,6 +21,7 @@ function createProductCard({ id, name, img: { src, alt }, desc }) {
 
 export async function createProductCards() {
     const products = await getProduct.execute();
+    console.log("products:", products);
     const productsElement = document.getElementById("items");
 
     products.forEach((product) => {
