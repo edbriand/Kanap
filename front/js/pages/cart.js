@@ -1,3 +1,3 @@
-import { createCartItemList } from "../vue/cartItems.js";
+import { createCartItems } from "../vue/cartItems.js";
 
-await createCartItemList();
+await createCartItems();

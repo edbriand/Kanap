@@ -39,11 +39,20 @@ export class GetProductById {
     }
 }
 
-export class GetCartItemList {
-    constructor(productRepository) {
-        this.productRepository = productRepository;
+export class CartItem {
+    constructor({ id, productId, productColor, quantity }) {
+        this.id = id;
+        this.productId = productId;
+        this.productColor = productColor;
+        this.quantity = quantity;
+    }
+}
+
+export class GetCartItems {
+    constructor(itemRepository) {
+        this.itemRepository = itemRepository;
     }
     execute() {
-        return this.productRepository.getCartItemList();
+        return this.itemRepository.getCartItems();
     }
 }

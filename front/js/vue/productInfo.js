@@ -14,7 +14,6 @@ export async function fillProductPage() {
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get("id");
     const product = await getProduct(id);
-    console.log(product);
 
     if (product) {
         fillProductInfos(product);
