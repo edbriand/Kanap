@@ -1,6 +1,6 @@
 import { CartItem } from "../domain/productService.js";
 
-const cartItemsArray = [
+let cartItemsArray = [
     new CartItem({
         id: "760985peNM4",
         productId: "48j9rftr9",
@@ -28,5 +28,13 @@ export class InMemoryItemRepository {
         const items = this.getitems();
         const item = items.find((item) => id === item.id);
         return item;
+    }
+
+    setCartItemQuantity(index, quantity) {
+        cartItemsArray[index].quantity = quantity;
+    }
+
+    removeCartItem(index) {
+        cartItemsArray.splice(index, 1);
     }
 }

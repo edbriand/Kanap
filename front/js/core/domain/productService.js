@@ -56,3 +56,21 @@ export class GetCartItems {
         return this.itemRepository.getCartItems();
     }
 }
+
+export class SetCartItem {
+    constructor(itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+    execute(index, quantity) {
+        this.itemRepository.setCartItemQuantity(index, quantity);
+    }
+}
+
+export class RemoveCartItem {
+    constructor(itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+    execute(index) {
+        this.itemRepository.removeCartItem(index);
+    }
+}

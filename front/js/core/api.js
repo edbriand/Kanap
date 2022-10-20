@@ -4,6 +4,8 @@ import {
     GetProduct,
     GetProductById,
     GetCartItems,
+    SetCartItem,
+    RemoveCartItem,
 } from "./domain/productService.js";
 
 export const productRepository = new InMemoryProductRepository();
@@ -12,3 +14,5 @@ export const getProductById = new GetProductById(productRepository);
 
 export const itemRepository = new InMemoryItemRepository();
 export const getCartItems = new GetCartItems(itemRepository);
+export const setCartItem = new SetCartItem(itemRepository);
+export const removeCartItem = new RemoveCartItem(itemRepository);
