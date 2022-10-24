@@ -32,8 +32,27 @@ export class AddItemToCart {
         this.itemRepository = itemRepository;
     }
     execute({ product, color, quantity }) {
-        // TO DO: If product and color already exist in cart, add quantity
-        // const cartItems = this.itemRepository.getCartItems;
+        // If product and color already exist in cart, add quantity
+        const cartItems = this.itemRepository.getCartItems();
+
+        const foundItem = cartItems.find(
+            (item) => item.product === product && item.color === color
+        );
+        if (foundItem) {
+            const updatedItem = new CartItem({
+                id: foundItem.id,
+                product,
+                color,
+                quantity: quantity + foundItem.quantity,
+            });
+            this.itemRepository.updateCartItem(updatedItem);
+
+            const newcartItems = this.itemRepository.getCartItems();
+            console.log(newcartItems);
+            return;
+        }
+
+        // else add the item to the cart
         const item = new CartItem({ product, color, quantity });
         this.itemRepository.addItemToCart(item);
     }

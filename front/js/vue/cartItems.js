@@ -2,7 +2,6 @@ import {
     getCartItems,
     updateCartItem,
     removeCartItem,
-    getProductById,
     calcCartTotal,
 } from "../core/api.js";
 
@@ -110,4 +109,11 @@ export async function createCartItems() {
     }
 
     updateCartTotal({ totalQuantity, totalPrice });
+
+    const orderButton = document.getElementById("order");
+    orderButton.addEventListener("click", order);
+}
+
+function order(event) {
+    console.log("order");
 }
