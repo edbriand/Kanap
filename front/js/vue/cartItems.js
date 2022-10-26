@@ -3,6 +3,7 @@ import {
     updateCartItem,
     removeCartItem,
     calcCartTotal,
+    placeOrder,
 } from "../core/api.js";
 
 function updateCartTotal({ totalQuantity, totalPrice }) {
@@ -111,9 +112,19 @@ export async function createCartItems() {
     updateCartTotal({ totalQuantity, totalPrice });
 
     const orderButton = document.getElementById("order");
-    orderButton.addEventListener("click", order);
+    orderButton.addEventListener("click", orderCart);
 }
 
-function order(event) {
-    console.log("order");
+function orderCart(event) {
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const email = document.getElementById("email").value;
+
+    try {
+        placeOrder.execute({ firstName, lastName, address, city, email });
+    } catch (error) {
+        console.log(error);
+    }
 }

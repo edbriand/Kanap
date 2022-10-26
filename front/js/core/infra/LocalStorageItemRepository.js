@@ -1,4 +1,4 @@
-export class InMemoryItemRepository {
+export class LocalStorageItemRepository {
     constructor(items) {
         this.items = items;
     }
@@ -31,4 +31,6 @@ export class InMemoryItemRepository {
     removeCartItem(index) {
         this.items.splice(index, 1);
     }
+
+    order({ firstName, lastName, address, city, email, items }) {}
 }

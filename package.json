@@ -1,0 +1,29 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.19.6",
+        "@babel/preset-env": "^7.19.4",
+        "@types/jest": "^29.2.0",
+        "babel-jest": "^29.2.2",
+        "concurrently": "^7.5.0",
+        "jest": "^29.2.2"
+    },
+    "name": "p5-dev-web-kanap",
+    "description": "This is the front end and back end server for Project 5 of the Web Developer path.",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "dev": "concurrently --kill-others \"npm --prefix back/ run server\" \"npm run --prefix front/ live\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/edbriand/Kanap.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/edbriand/Kanap/issues"
+    },
+    "homepage": "https://github.com/edbriand/Kanap#readme"
+}

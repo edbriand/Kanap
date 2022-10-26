@@ -1,4 +1,5 @@
 import { CartItem } from "./cartItem.js";
+import { Order } from "./order.js";
 
 export class GetCartItems {
     constructor(itemRepository) {
@@ -75,5 +76,24 @@ export class CalcCartTotal {
         }
 
         return { totalQuantity, totalPrice };
+    }
+}
+
+export class PlaceOrder {
+    constructor(itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+    execute({ firstName, lastName, address, city, email }) {
+        const cartItems = this.itemRepository.getCartItems();
+        const order = new Order({
+            firstName,
+            lastName,
+            address,
+            city,
+            email,
+            items: cartItems,
+        });
+
+        this.itemRepository.order(order);
     }
 }
