@@ -116,6 +116,7 @@ export async function createCartItems() {
 }
 
 function orderCart(event) {
+    event.preventDefault();
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
     const address = document.getElementById("address").value;

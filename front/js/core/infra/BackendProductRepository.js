@@ -18,8 +18,20 @@ export class BackendProductRepository {
     }
 
     async getProductById(id) {
-        const products = await this.getProducts();
-        const product = products.find((product) => id === product.id);
-        return product;
+        const response = await fetch(
+            `http://localhost:3000/api/products/${id}`
+        );
+        const product = await response.json();
+        const products = [product];
+        return products.map((product) => {
+            return {
+                id: product._id,
+                colors: product.colors,
+                name: product.name,
+                price: product.price,
+                img: { src: product.imageUrl, alt: product.altTxt },
+                desc: product.description,
+            };
+        })[0];
     }
 }
