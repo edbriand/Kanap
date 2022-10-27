@@ -85,14 +85,19 @@ export class PlaceOrder {
     }
     execute({ firstName, lastName, address, city, email }) {
         const cartItems = this.itemRepository.getCartItems();
-        const order = new Order({
-            firstName,
-            lastName,
-            address,
-            city,
-            email,
-            items: cartItems,
-        });
+        let order;
+        try {
+            order = new Order({
+                firstName,
+                lastName,
+                address,
+                city,
+                email,
+                items: cartItems,
+            });
+        } catch (error) {
+            throw error;
+        }
 
         this.itemRepository.order(order);
     }

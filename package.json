@@ -13,7 +13,7 @@
     "main": "index.js",
     "scripts": {
         "test": "jest",
-        "dev": "concurrently --kill-others \"npm --prefix back/ run server\" \"npm run --prefix front/ live\""
+        "dev": "concurrently --kill-others \"npm --prefix back/ run server\" \"npm --prefix front/ run live\""
     },
     "repository": {
         "type": "git",

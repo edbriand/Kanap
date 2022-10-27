@@ -16,7 +16,6 @@ export class Order {
         this.city = city.toUpperCase();
         this.email = email;
         this.items = items;
-        console.log(this);
     }
 
     generateId() {
@@ -27,25 +26,37 @@ export class Order {
     }
 
     validateItem({ firstName, lastName, address, city, email }) {
+        let errorMsg = "";
         //Verify names
         if (!this.isValidName(firstName.toUpperCase())) {
-            throw new Error("The first name entered is not valid.");
+            errorMsg += "The first name entered is not valid.";
         }
         if (!this.isValidName(lastName.toUpperCase())) {
-            throw new Error("The last name entered is not valid.");
+            errorMsg += "The last name entered is not valid.";
+        }
+        //Verify address
+        if (!this.isValidAddress(address)) {
+            errorMsg += "The address entered is not valid.";
         }
         //Verify city
         if (!this.isValidCity(city.toUpperCase())) {
-            throw new Error("The city entered is not valid.");
+            errorMsg += "The city entered is not valid.";
         }
         //Verify email
         if (!this.isValidEmail(email.toUpperCase())) {
-            throw new Error("The email entered is not valid.");
+            errorMsg += "The email entered is not valid.";
         }
+
+        throw new Error(errorMsg);
     }
 
     isValidName(name) {
         return /^[a-z ,.'-]+$/i.test(name);
+    }
+
+    isValidAddress(address) {
+        console.log(address.length != 0);
+        return address.length != 0;
     }
 
     isValidCity(city) {

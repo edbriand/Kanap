@@ -115,6 +115,49 @@ export async function createCartItems() {
     orderButton.addEventListener("click", orderCart);
 }
 
+function findSentence(sentences, key) {
+    let foundSentence;
+    sentences.forEach((sentence) => {
+        if (sentence.includes(key)) {
+            foundSentence = sentence;
+        }
+    });
+    return foundSentence;
+}
+
+function getMsgElements(errorMsg) {
+    const msgElementsObj = [
+        { title: "first name", id: "firstNameErrorMsg" },
+        { title: "last name", id: "lastNameErrorMsg" },
+        { title: "address", id: "addressErrorMsg" },
+        { title: "city", id: "cityErrorMsg" },
+        { title: "email", id: "emailErrorMsg" },
+    ];
+
+    let msgElements = [];
+    const regex = /\w+\s+[^.!?:]*[.!?]/g;
+    const messages = errorMsg.match(regex);
+
+    msgElementsObj.forEach(({ title, id }) => {
+        let text = "";
+        const message = findSentence(messages, title);
+        if (message) {
+            text = message;
+        }
+        msgElements.push({ element: document.getElementById(id), text });
+    });
+
+    return msgElements;
+}
+
+function displayErrorMsg(msg) {
+    const msgElements = getMsgElements(msg);
+
+    msgElements.forEach(({ element, text }) => {
+        element.innerHTML = text;
+    });
+}
+
 function orderCart(event) {
     event.preventDefault();
     const firstName = document.getElementById("firstName").value;
@@ -126,6 +169,7 @@ function orderCart(event) {
     try {
         placeOrder.execute({ firstName, lastName, address, city, email });
     } catch (error) {
-        console.log(error);
+        console.log(`%c${error}`, "color: red");
+        displayErrorMsg(error.message);
     }
 }
