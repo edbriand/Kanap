@@ -34,4 +34,31 @@ export class BackendProductRepository {
             };
         })[0];
     }
+
+    async order({ firstName, lastName, address, city, email, items }) {
+        const products = items.map((item) => {
+            return item.product.id;
+        });
+        console.log(products);
+
+        const orderObject = {
+            contact: {
+                firstName,
+                lastName,
+                address,
+                city,
+                email,
+            },
+            products,
+        };
+
+        await fetch("http://localhost:3000/api/products/order", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderObject),
+        });
+    }
 }

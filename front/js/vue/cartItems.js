@@ -102,11 +102,13 @@ export async function createCartItems() {
     let totalQuantity = 0;
     let totalPrice = 0;
 
-    for (const item of items) {
-        createCartItem(cartElement, item);
+    if (items) {
+        for (const item of items) {
+            createCartItem(cartElement, item);
 
-        totalQuantity += item.quantity;
-        totalPrice += item.quantity * item.product.price;
+            totalQuantity += item.quantity;
+            totalPrice += item.quantity * item.product.price;
+        }
     }
 
     updateCartTotal({ totalQuantity, totalPrice });
@@ -117,7 +119,7 @@ export async function createCartItems() {
 
 function findSentence(sentences, key) {
     let foundSentence;
-    sentences.forEach((sentence) => {
+    sentences?.forEach((sentence) => {
         if (sentence.includes(key)) {
             foundSentence = sentence;
         }

@@ -1,36 +1,39 @@
 export class LocalStorageItemRepository {
-    constructor(items) {
-        this.items = items;
-    }
-
     getCartItems() {
-        return this.items;
+        const items = JSON.parse(localStorage.getItem("items"));
+        if (!items) return [];
+        return items;
     }
 
     getItemById(id) {
-        const items = this.getitems();
+        const items = this.getCartItems();
         const item = items.find((item) => id === item.id);
         return item;
     }
 
     updateCartItem(item) {
-        const index = this.items.findIndex((i) => i.id === item.id);
+        const items = this.getCartItems();
+        const index = items.findIndex((i) => i.id === item.id);
 
         if (index < 0) {
             console.log("did not find item index in cart");
             return;
         }
-        this.items[index] = item;
+        items[index] = item;
+
+        localStorage.setItem("items", JSON.stringify(items));
     }
 
     addItemToCart(item) {
-        this.items.push(item);
-        console.log(this.items);
+        const items = this.getCartItems();
+        items.push(item);
+        console.log(items);
+        localStorage.setItem("items", JSON.stringify(items));
     }
 
     removeCartItem(index) {
-        this.items.splice(index, 1);
+        const items = this.getCartItems();
+        items.splice(index, 1);
+        localStorage.setItem("items", JSON.stringify(items));
     }
-
-    order({ firstName, lastName, address, city, email, items }) {}
 }

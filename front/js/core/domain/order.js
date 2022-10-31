@@ -47,6 +47,8 @@ export class Order {
             errorMsg += "The email entered is not valid.";
         }
 
+        if (errorMsg === "") return;
+
         throw new Error(errorMsg);
     }
 
@@ -55,7 +57,6 @@ export class Order {
     }
 
     isValidAddress(address) {
-        console.log(address.length != 0);
         return address.length != 0;
     }
 

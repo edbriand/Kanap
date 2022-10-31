@@ -80,8 +80,9 @@ export class CalcCartTotal {
 }
 
 export class PlaceOrder {
-    constructor(itemRepository) {
+    constructor(itemRepository, productRepository) {
         this.itemRepository = itemRepository;
+        this.productRepository = productRepository;
     }
     execute({ firstName, lastName, address, city, email }) {
         const cartItems = this.itemRepository.getCartItems();
@@ -99,6 +100,6 @@ export class PlaceOrder {
             throw error;
         }
 
-        this.itemRepository.order(order);
+        this.productRepository.order(order);
     }
 }
