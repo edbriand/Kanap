@@ -84,7 +84,7 @@ export class PlaceOrder {
         this.itemRepository = itemRepository;
         this.productRepository = productRepository;
     }
-    execute({ firstName, lastName, address, city, email }) {
+    async execute({ firstName, lastName, address, city, email }) {
         const cartItems = this.itemRepository.getCartItems();
         let order;
         try {
@@ -100,6 +100,7 @@ export class PlaceOrder {
             throw error;
         }
 
-        this.productRepository.order(order);
+        const orderObj = await this.productRepository.order(order);
+        return orderObj;
     }
 }

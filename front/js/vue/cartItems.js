@@ -99,19 +99,9 @@ export async function createCartItems() {
     const items = await getCartItems.execute();
     const cartElement = document.getElementById("cart__items");
 
-    let totalQuantity = 0;
-    let totalPrice = 0;
+    items?.forEach((item) => createCartItem(cartElement, item));
 
-    if (items) {
-        for (const item of items) {
-            createCartItem(cartElement, item);
-
-            totalQuantity += item.quantity;
-            totalPrice += item.quantity * item.product.price;
-        }
-    }
-
-    updateCartTotal({ totalQuantity, totalPrice });
+    updateCartTotal(calcCartTotal.execute());
 
     const orderButton = document.getElementById("order");
     orderButton.addEventListener("click", orderCart);
@@ -160,7 +150,7 @@ function displayErrorMsg(msg) {
     });
 }
 
-function orderCart(event) {
+async function orderCart(event) {
     event.preventDefault();
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
@@ -169,7 +159,19 @@ function orderCart(event) {
     const email = document.getElementById("email").value;
 
     try {
-        placeOrder.execute({ firstName, lastName, address, city, email });
+        const order = await placeOrder.execute({
+            firstName,
+            lastName,
+            address,
+            city,
+            email,
+        });
+
+        // Redirect to confirmation page
+        const currentUrl = window.location.href;
+        const newUrl = currentUrl.replace("cart", "confirmation");
+        const url = `${newUrl}?orderid=${order.orderId}`;
+        window.location.href = url;
     } catch (error) {
         console.log(`%c${error}`, "color: red");
         displayErrorMsg(error.message);

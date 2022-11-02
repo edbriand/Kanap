@@ -52,13 +52,19 @@ export class BackendProductRepository {
             products,
         };
 
-        await fetch("http://localhost:3000/api/products/order", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(orderObject),
-        });
+        const orderResponse = await fetch(
+            "http://localhost:3000/api/products/order",
+            {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(orderObject),
+            }
+        );
+
+        const orderObj = await orderResponse.json();
+        return orderObj;
     }
 }
