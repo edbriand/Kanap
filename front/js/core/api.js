@@ -1,12 +1,16 @@
+// Ce script permet de connecter l'infrastructure utilisée
+// (localStorage, backend, in memory arrays...) aux fonctions métier
+
 // In memory tests
 import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
 import { InMemoryItemRepository } from "./infra/InMemoryItemRepository.js";
 import { products, cartItems } from "./infra/inMemoryInit.js";
-// LocalStorage and Backend
+// Backend
 import { BackendProductRepository } from "./infra/BackendProductRepository.js";
+// LocalStorage
 import { LocalStorageItemRepository } from "./infra/LocalStorageItemRepository.js";
 // Domain
-import { GetProduct, GetProductById } from "./domain/productService.js";
+import { GetProducts, GetProductById } from "./domain/productService.js";
 import {
     GetCartItems,
     AddItemToCart,
@@ -18,7 +22,7 @@ import {
 
 // export const productRepository = new InMemoryProductRepository(products);
 const productRepository = new BackendProductRepository();
-export const getProduct = new GetProduct(productRepository);
+export const getProducts = new GetProducts(productRepository);
 export const getProductById = new GetProductById(productRepository);
 
 // const itemRepository = new InMemoryItemRepository(cartItems);

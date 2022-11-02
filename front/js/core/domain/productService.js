@@ -1,4 +1,5 @@
-export class GetProduct {
+// Retourne la liste des produits
+export class GetProducts {
     constructor(productRepository) {
         this.productRepository = productRepository;
     }
@@ -7,6 +8,7 @@ export class GetProduct {
     }
 }
 
+// Retourne le produit ayant l'identifiant donné
 export class GetProductById {
     constructor(productRepository) {
         this.productRepository = productRepository;

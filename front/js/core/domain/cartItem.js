@@ -7,6 +7,7 @@ export class CartItem {
         this.quantity = quantity;
     }
 
+    // Génère un identifiant unique
     generateId() {
         const id =
             Math.random().toString(36).substring(2) +
@@ -14,6 +15,8 @@ export class CartItem {
         return id;
     }
 
+    // Valide l'item: la quantité doit être entre 0 et 100
+    // la couleur choisie doit faire partie des couleurs du produit
     validateItem({ product, color, quantity }) {
         if (!product) {
             throw new Error("No product found");

@@ -1,5 +1,6 @@
 import { getProductById, addItemToCart } from "../core/api.js";
 
+// Renvoie le produit ayant l'identifiant donné
 async function getProduct(id) {
     try {
         const product = await getProductById.execute(id);
@@ -9,6 +10,7 @@ async function getProduct(id) {
     }
 }
 
+// Récupére l'identifiant depuis l'url de la page
 function getIdFromPage() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -16,6 +18,7 @@ function getIdFromPage() {
     return id;
 }
 
+// Compléte la page produit selon l'identifiant inclu
 export async function fillProductPage() {
     const id = getIdFromPage();
     const product = await getProduct(id);
@@ -30,6 +33,7 @@ export async function fillProductPage() {
     addToCartButton.addEventListener("click", addItem);
 }
 
+// Crée l'élement option d'une couleur donnée
 function createColor(color) {
     const colorElement = document.createElement("option");
     colorElement.setAttribute("value", color);
@@ -37,6 +41,7 @@ function createColor(color) {
     return colorElement;
 }
 
+// Remplis la page avec les informations du produit
 function fillProductInfos({ price, name, img: { src, alt }, desc, colors }) {
     const productImg = document.getElementsByClassName("item__img")[0];
     const imgElement = document.createElement("img");
@@ -55,6 +60,7 @@ function fillProductInfos({ price, name, img: { src, alt }, desc, colors }) {
     });
 }
 
+// Ajoute un item au panier selon les champs remplis par l'utilisateur
 async function addItem() {
     const quantity = parseInt(document.getElementById("quantity").value);
 

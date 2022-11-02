@@ -1,6 +1,7 @@
 import axios from "../../../node_modules/axios/dist/esm/axios.js";
 
 export class BackendProductRepository {
+    // Renvoie la liste des produits du backend
     async getProducts() {
         const response = await fetch("http://localhost:3000/api/products");
         const products = await response.json();
@@ -17,6 +18,7 @@ export class BackendProductRepository {
         });
     }
 
+    // Renvoie le produit ayant l'identifiant donné via l'api backend
     async getProductById(id) {
         const response = await fetch(
             `http://localhost:3000/api/products/${id}`
@@ -35,6 +37,8 @@ export class BackendProductRepository {
         })[0];
     }
 
+    // Envoie les informations d'une commande au backend
+    // Recoie ces informations et un identifiant de commande
     async order({ firstName, lastName, address, city, email, items }) {
         const products = items.map((item) => {
             return item.product.id;

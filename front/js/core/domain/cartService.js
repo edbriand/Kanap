@@ -1,6 +1,7 @@
 import { CartItem } from "./cartItem.js";
 import { Order } from "./order.js";
 
+// Renvoie la liste des items du panier
 export class GetCartItems {
     constructor(itemRepository) {
         this.itemRepository = itemRepository;
@@ -10,6 +11,7 @@ export class GetCartItems {
     }
 }
 
+// Met à jour un item du panier
 export class UpdateCartItem {
     constructor(itemRepository) {
         this.itemRepository = itemRepository;
@@ -19,15 +21,7 @@ export class UpdateCartItem {
     }
 }
 
-export class RemoveCartItem {
-    constructor(itemRepository) {
-        this.itemRepository = itemRepository;
-    }
-    execute(index) {
-        this.itemRepository.removeCartItem(index);
-    }
-}
-
+// Ajoute un item au panier
 export class AddItemToCart {
     constructor(itemRepository) {
         this.itemRepository = itemRepository;
@@ -59,6 +53,17 @@ export class AddItemToCart {
     }
 }
 
+// Retire un item du panier
+export class RemoveCartItem {
+    constructor(itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+    execute(item) {
+        this.itemRepository.removeCartItem(item);
+    }
+}
+
+// Calcule et renvoie la quantité et le prix totale des items du panier
 export class CalcCartTotal {
     constructor(itemRepository) {
         this.itemRepository = itemRepository;
@@ -79,6 +84,9 @@ export class CalcCartTotal {
     }
 }
 
+// Essaye de créer la commande avec les informations reçue
+// Envoie la commande
+// Recoie ces informations et un identifiant de commande
 export class PlaceOrder {
     constructor(itemRepository, productRepository) {
         this.itemRepository = itemRepository;

@@ -6,6 +6,7 @@ import {
     placeOrder,
 } from "../core/api.js";
 
+// Affiche les totaux mis à jour sur la page
 function updateCartTotal({ totalQuantity, totalPrice }) {
     const totalQuantityElement = document.getElementById("totalQuantity");
     const totalPriceElement = document.getElementById("totalPrice");
@@ -14,32 +15,21 @@ function updateCartTotal({ totalQuantity, totalPrice }) {
     totalPriceElement.innerHTML = `${totalPrice}`;
 }
 
-function findIndexOfItem(items, itemElement) {
-    const id = itemElement.getAttribute("data-id");
-    const color = itemElement.getAttribute("data-color");
-
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].product.id === id && items[i].color === color) {
-            return i;
-        }
-    }
-    return null;
-}
-
+// Met à jour la quantité de l'item
 async function updateQuantity(item) {
     await updateCartItem.execute(item);
     await updateCartTotal(calcCartTotal.execute());
 }
 
-async function deleteItemElement(itemElement) {
-    const items = await getCartItems.execute();
-    const index = findIndexOfItem(items, itemElement);
-    await removeCartItem.execute(index);
+// Supprime l'item et l'élément de l'item
+async function deleteItemElement(item, itemElement) {
+    await removeCartItem.execute(item);
     await updateCartTotal(calcCartTotal.execute());
 
     itemElement.remove();
 }
 
+// Crée l'élément de l'item
 function createCartItem(cartElement, { id, product, color, quantity }) {
     const itemElement = document.createElement("article");
     [
@@ -88,13 +78,15 @@ function createCartItem(cartElement, { id, product, color, quantity }) {
             );
 
             const deleteItemButton = element.querySelector(".deleteItem");
-            deleteItemButton.addEventListener("click", (event) =>
-                deleteItemElement(itemElement)
-            );
+            deleteItemButton.addEventListener("click", (event) => {
+                const item = { id, product, color, quantity };
+                deleteItemElement(item, itemElement);
+            });
         }
     });
 }
 
+// Crée les élements de tous le items du panier
 export async function createCartItems() {
     const items = await getCartItems.execute();
     const cartElement = document.getElementById("cart__items");
@@ -107,6 +99,7 @@ export async function createCartItems() {
     orderButton.addEventListener("click", orderCart);
 }
 
+// Cherches une phrase contenant ces mots clés dans un texte
 function findSentence(sentences, key) {
     let foundSentence;
     sentences?.forEach((sentence) => {
@@ -117,12 +110,13 @@ function findSentence(sentences, key) {
     return foundSentence;
 }
 
+// Renvoie les éléments sensés afficher les erreur ainsi que leur message d'erreur
 function getMsgElements(errorMsg) {
     const msgElementsObj = [
-        { title: "first name", id: "firstNameErrorMsg" },
-        { title: "last name", id: "lastNameErrorMsg" },
-        { title: "address", id: "addressErrorMsg" },
-        { title: "city", id: "cityErrorMsg" },
+        { title: "prénom", id: "firstNameErrorMsg" },
+        { title: " nom", id: "lastNameErrorMsg" },
+        { title: "addresse", id: "addressErrorMsg" },
+        { title: "ville", id: "cityErrorMsg" },
         { title: "email", id: "emailErrorMsg" },
     ];
 
@@ -142,6 +136,7 @@ function getMsgElements(errorMsg) {
     return msgElements;
 }
 
+// Affiche les messages d'erreur dans leurs éléments respectifs
 function displayErrorMsg(msg) {
     const msgElements = getMsgElements(msg);
 
@@ -150,6 +145,15 @@ function displayErrorMsg(msg) {
     });
 }
 
+// Redirige l'utilisateur vers la page confirmation concernant sa commande
+function redirectToConfirmationPage(order) {
+    const currentUrl = window.location.href;
+    const newUrl = currentUrl.replace("cart", "confirmation");
+    const url = `${newUrl}?orderid=${order.orderId}`;
+    window.location.href = url;
+}
+
+// Envoie le contenu du formulaire
 async function orderCart(event) {
     event.preventDefault();
     const firstName = document.getElementById("firstName").value;
@@ -166,12 +170,7 @@ async function orderCart(event) {
             city,
             email,
         });
-
-        // Redirect to confirmation page
-        const currentUrl = window.location.href;
-        const newUrl = currentUrl.replace("cart", "confirmation");
-        const url = `${newUrl}?orderid=${order.orderId}`;
-        window.location.href = url;
+        redirectToConfirmationPage(order);
     } catch (error) {
         console.log(`%c${error}`, "color: red");
         displayErrorMsg(error.message);

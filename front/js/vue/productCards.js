@@ -1,5 +1,6 @@
-import { getProduct } from "../core/api.js";
+import { getProducts } from "../core/api.js";
 
+// Crée la carte du produit donné
 function createProductCard({ id, name, img: { src, alt }, desc }) {
     const productElement = document.createElement("a");
     productElement.setAttribute("href", `./product.html?id=${id}`);
@@ -18,8 +19,9 @@ function createProductCard({ id, name, img: { src, alt }, desc }) {
     return productElement;
 }
 
+// Crée les cartes de tous le produits
 export async function createProductCards() {
-    const products = await getProduct.execute();
+    const products = await getProducts.execute();
     const productsElement = document.getElementById("items");
 
     products.forEach((product) => {

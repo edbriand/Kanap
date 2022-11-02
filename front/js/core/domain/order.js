@@ -8,7 +8,8 @@ export class Order {
         email,
         items,
     }) {
-        this.validateItem({ firstName, lastName, address, city, email });
+        this.validateOrder({ firstName, lastName, address, city, email });
+        // Les informations client sont formatés
         this.id = id;
         this.firstName = firstName.toUpperCase();
         this.lastName = lastName.toUpperCase();
@@ -18,6 +19,7 @@ export class Order {
         this.items = items;
     }
 
+    // Génère un identifiant unique
     generateId() {
         const id =
             Math.random().toString(36).substring(2) +
@@ -25,26 +27,25 @@ export class Order {
         return id;
     }
 
-    validateItem({ firstName, lastName, address, city, email }) {
+    // Valide la commande: le contenu des informations clients
+    // doit être cohérent sinon une erreur est renvoyé
+    validateOrder({ firstName, lastName, address, city, email }) {
         let errorMsg = "";
-        //Verify names
+
         if (!this.isValidName(firstName.toUpperCase())) {
-            errorMsg += "The first name entered is not valid.";
+            errorMsg += "Ce prénom n'est pas valide.";
         }
         if (!this.isValidName(lastName.toUpperCase())) {
-            errorMsg += "The last name entered is not valid.";
+            errorMsg += "Ce nom n'est pas valide.";
         }
-        //Verify address
         if (!this.isValidAddress(address)) {
-            errorMsg += "The address entered is not valid.";
+            errorMsg += "Cette addresse n'est pas valide.";
         }
-        //Verify city
         if (!this.isValidCity(city.toUpperCase())) {
-            errorMsg += "The city entered is not valid.";
+            errorMsg += "Cette ville n'est pas valide.";
         }
-        //Verify email
         if (!this.isValidEmail(email.toUpperCase())) {
-            errorMsg += "The email entered is not valid.";
+            errorMsg += "Cet email n'est pas valide.";
         }
 
         if (errorMsg === "") return;

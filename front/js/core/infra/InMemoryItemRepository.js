@@ -28,9 +28,10 @@ export class InMemoryItemRepository {
         console.log(this.items);
     }
 
-    removeCartItem(index) {
+    removeCartItem(itemToRemove) {
+        const item = this.items.find((item) => itemToRemove.id === item.id);
+        const index = this.items.indexOf(item);
+        if (index < 0) return;
         this.items.splice(index, 1);
     }
-
-    order({ firstName, lastName, address, city, email, items }) {}
 }
