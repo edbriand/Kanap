@@ -11,11 +11,11 @@ export class Order {
         this.validateOrder({ firstName, lastName, address, city, email });
         // Les informations client sont formatés
         this.id = id;
-        this.firstName = firstName.toUpperCase();
-        this.lastName = lastName.toUpperCase();
-        this.address = address.toUpperCase();
-        this.city = city.toUpperCase();
-        this.email = email;
+        this.firstName = firstName.trim().toUpperCase();
+        this.lastName = lastName.trim().toUpperCase();
+        this.address = address.trim().toUpperCase();
+        this.city = city.trim().toUpperCase();
+        this.email = email.trim();
         this.items = items;
     }
 

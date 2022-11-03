@@ -17,7 +17,7 @@ export class InMemoryItemRepository {
         const index = this.items.findIndex((i) => i.id === item.id);
 
         if (index < 0) {
-            console.log("did not find item index in cart");
+            //console.log("did not find item index in cart");
             return;
         }
         this.items[index] = item;
@@ -25,7 +25,7 @@ export class InMemoryItemRepository {
 
     addItemToCart(item) {
         this.items.push(item);
-        console.log(this.items);
+        //console.log(this.items);
     }
 
     removeCartItem(itemToRemove) {

@@ -6,7 +6,7 @@ async function getProduct(id) {
         const product = await getProductById.execute(id);
         return product;
     } catch (error) {
-        console.log("error:", error);
+        //console.log("error:", error);
     }
 }
 
@@ -26,7 +26,7 @@ export async function fillProductPage() {
     if (product) {
         fillProductInfos(product);
     } else {
-        console.log("error: cannot find a product with this id: ", id);
+        //console.log("error: cannot find a product with this id: ", id);
     }
 
     const addToCartButton = document.getElementById("addToCart");
@@ -73,6 +73,6 @@ async function addItem() {
     try {
         addItemToCart.execute({ product, color, quantity });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 }

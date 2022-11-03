@@ -172,7 +172,7 @@ async function orderCart(event) {
         });
         redirectToConfirmationPage(order);
     } catch (error) {
-        console.log(`%c${error}`, "color: red");
+        //console.log(`%c${error}`, "color: red");
         displayErrorMsg(error.message);
     }
 }

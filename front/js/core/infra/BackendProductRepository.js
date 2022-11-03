@@ -1,5 +1,3 @@
-import axios from "../../../node_modules/axios/dist/esm/axios.js";
-
 export class BackendProductRepository {
     // Renvoie la liste des produits du backend
     async getProducts() {
@@ -43,7 +41,6 @@ export class BackendProductRepository {
         const products = items.map((item) => {
             return item.product.id;
         });
-        console.log(products);
 
         const orderObject = {
             contact: {

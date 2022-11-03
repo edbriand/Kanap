@@ -19,7 +19,7 @@ export class LocalStorageItemRepository {
         const index = items.findIndex((i) => i.id === item.id);
 
         if (index < 0) {
-            console.log("did not find item index in cart");
+            //console.log("did not find item index in cart");
             return;
         }
         items[index] = item;
@@ -31,7 +31,7 @@ export class LocalStorageItemRepository {
     addItemToCart(item) {
         const items = this.getCartItems();
         items.push(item);
-        console.log(items);
+        //console.log(items);
         localStorage.setItem("items", JSON.stringify(items));
     }
 

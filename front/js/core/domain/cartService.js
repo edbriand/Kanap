@@ -31,19 +31,19 @@ export class AddItemToCart {
         const cartItems = this.itemRepository.getCartItems();
 
         const foundItem = cartItems.find(
-            (item) => item.product === product && item.color === color
+            (item) => item.product.id === product.id && item.color === color
         );
         if (foundItem) {
             const updatedItem = new CartItem({
                 id: foundItem.id,
                 product,
                 color,
-                quantity: quantity + foundItem.quantity,
+                quantity: parseInt(quantity) + parseInt(foundItem.quantity),
             });
             this.itemRepository.updateCartItem(updatedItem);
 
             const newcartItems = this.itemRepository.getCartItems();
-            console.log(newcartItems);
+            //console.log(newcartItems);
             return;
         }
 
@@ -69,18 +69,20 @@ export class CalcCartTotal {
         this.itemRepository = itemRepository;
     }
     execute() {
-        let totalQuantity = 0;
-        let totalPrice = 0;
-
         const cartItems = this.itemRepository.getCartItems();
 
-        for (const item of cartItems) {
-            totalQuantity += parseInt(item.quantity);
-            totalPrice +=
-                parseInt(item.quantity) * parseInt(item.product.price);
-        }
-
-        return { totalQuantity, totalPrice };
+        return cartItems.reduce(
+            (acc, item) => {
+                return {
+                    totalQuantity: (acc.totalQuantity += parseInt(
+                        item.quantity
+                    )),
+                    totalPrice: (acc.totalPrice +=
+                        parseInt(item.quantity) * parseInt(item.product.price)),
+                };
+            },
+            { totalQuantity: 0, totalPrice: 0 }
+        );
     }
 }
 
