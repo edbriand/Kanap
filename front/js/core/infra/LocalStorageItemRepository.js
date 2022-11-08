@@ -44,4 +44,9 @@ export class LocalStorageItemRepository {
         items.splice(index, 1);
         localStorage.setItem("items", JSON.stringify(items));
     }
+
+    resetCart() {
+        const items = [];
+        localStorage.setItem("items", JSON.stringify(items));
+    }
 }

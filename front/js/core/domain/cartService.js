@@ -111,6 +111,7 @@ export class PlaceOrder {
         }
 
         const orderObj = await this.productRepository.order(order);
+        this.itemRepository.resetCart();
         return orderObj;
     }
 }
