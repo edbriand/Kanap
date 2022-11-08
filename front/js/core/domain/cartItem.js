@@ -20,7 +20,7 @@ export class CartItem {
     validateItem({ product, color, quantity }) {
         this.validateProduct(product);
         this.validateQuantity(quantity);
-        this.validateColor(color);
+        this.validateColor(product.colors, color);
     }
 
     validateProduct(product) {
@@ -40,9 +40,9 @@ export class CartItem {
         }
     }
 
-    validateColor(color) {
+    validateColor(colors, color) {
         // Verify color: if unknown for this product, throw error
-        if (!product.colors.includes(color)) {
+        if (!colors.includes(color)) {
             throw new Error("The color is not a valid color for this product");
         }
     }

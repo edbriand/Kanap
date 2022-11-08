@@ -2,9 +2,10 @@
 // (localStorage, backend, in memory arrays...) aux fonctions métier
 
 // In memory tests
-import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
-import { InMemoryItemRepository } from "./infra/InMemoryItemRepository.js";
-import { products, cartItems } from "./infra/inMemoryInit.js";
+//import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
+//import { InMemoryItemRepository } from "./infra/InMemoryItemRepository.js";
+//import { products, cartItems } from "./infra/inMemoryInit.js";
+
 // Backend
 import { BackendProductRepository } from "./infra/BackendProductRepository.js";
 // LocalStorage
