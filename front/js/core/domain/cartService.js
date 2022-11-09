@@ -1,3 +1,4 @@
+import { getProductById, getProducts } from "../api.js";
 import { CartItem } from "./cartItem.js";
 import { Order } from "./order.js";
 
@@ -33,7 +34,7 @@ export class AddItemToCart {
         const cartItems = this.itemRepository.getCartItems();
 
         const foundItem = cartItems.find(
-            (item) => item.product.id === product.id && item.color === color
+            (item) => item.productId === product.id && item.color === color
         );
         if (foundItem) {
             const updatedItem = new CartItem({
@@ -43,9 +44,6 @@ export class AddItemToCart {
                 quantity: parseInt(quantity) + parseInt(foundItem.quantity),
             });
             this.itemRepository.updateCartItem(updatedItem);
-
-            const newcartItems = this.itemRepository.getCartItems();
-            //console.log(newcartItems);
             return;
         }
 
@@ -69,17 +67,21 @@ export class CalcCartTotal {
     constructor(itemRepository) {
         this.itemRepository = itemRepository;
     }
-    execute() {
+    async execute() {
         const cartItems = this.itemRepository.getCartItems();
+        const products = await getProducts.execute();
 
         return cartItems.reduce(
             (acc, item) => {
+                const product = products.find(
+                    (product) => product.id === item.productId
+                );
                 return {
                     totalQuantity: (acc.totalQuantity += parseInt(
                         item.quantity
                     )),
                     totalPrice: (acc.totalPrice +=
-                        parseInt(item.quantity) * parseInt(item.product.price)),
+                        parseInt(item.quantity) * parseInt(product.price)),
                 };
             },
             { totalQuantity: 0, totalPrice: 0 }

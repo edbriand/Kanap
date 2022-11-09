@@ -4,6 +4,7 @@ import {
     removeCartItem,
     calcCartTotal,
     placeOrder,
+    getProductById,
 } from "../core/api.js";
 
 // Affiche les totaux mis à jour sur la page
@@ -18,23 +19,25 @@ function updateCartTotal({ totalQuantity, totalPrice }) {
 // Met à jour la quantité de l'item
 async function updateQuantity(item) {
     await updateCartItem.execute(item);
-    await updateCartTotal(calcCartTotal.execute());
+    await updateCartTotal(await calcCartTotal.execute());
 }
 
 // Supprime l'item et l'élément de l'item
 async function deleteItemElement(item, itemElement) {
     await removeCartItem.execute(item);
-    await updateCartTotal(calcCartTotal.execute());
+    await updateCartTotal(await calcCartTotal.execute());
 
     itemElement.remove();
 }
 
 // Crée l'élément de l'item
-function createCartItem(cartElement, { id, product, color, quantity }) {
+async function createCartItem(cartElement, { id, productId, color, quantity }) {
+    const product = await getProductById.execute(productId);
+
     const itemElement = document.createElement("article");
     [
         { key: "class", value: "cart__item" },
-        { key: "data-id", value: product.id },
+        { key: "data-id", value: productId },
         { key: "data-color", value: color },
     ].forEach(({ key, value }) => itemElement.setAttribute(key, value));
 
@@ -71,7 +74,7 @@ function createCartItem(cartElement, { id, product, color, quantity }) {
             quantityElement.addEventListener("change", (event) =>
                 updateQuantity({
                     id,
-                    product,
+                    productId,
                     color,
                     quantity: event.target.value,
                 })
@@ -79,7 +82,7 @@ function createCartItem(cartElement, { id, product, color, quantity }) {
 
             const deleteItemButton = element.querySelector(".deleteItem");
             deleteItemButton.addEventListener("click", (event) => {
-                const item = { id, product, color, quantity };
+                const item = { id, productId, color, quantity };
                 deleteItemElement(item, itemElement);
             });
         }
@@ -93,7 +96,7 @@ export async function createCartItems() {
 
     items?.forEach((item) => createCartItem(cartElement, item));
 
-    updateCartTotal(calcCartTotal.execute());
+    updateCartTotal(await calcCartTotal.execute());
 
     const orderButton = document.getElementById("order");
     orderButton.addEventListener("click", orderCart);

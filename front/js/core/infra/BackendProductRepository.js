@@ -39,7 +39,7 @@ export class BackendProductRepository {
     // Recoie ces informations et un identifiant de commande
     async order({ firstName, lastName, address, city, email, items }) {
         const products = items.map((item) => {
-            return item.product.id;
+            return item.productId;
         });
 
         const orderObject = {

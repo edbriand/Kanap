@@ -2,7 +2,7 @@ export class CartItem {
     constructor({ id = this.generateId(), product, color, quantity }) {
         this.validateItem({ product, color, quantity });
         this.id = id;
-        this.product = product;
+        this.productId = product.id;
         this.color = color;
         this.quantity = quantity;
     }
