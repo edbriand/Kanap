@@ -80,9 +80,6 @@ async function addItem() {
 }
 
 function displayMessage(message) {
-    console.log(message);
-    const oldMessageElement = document.getElementById("addToCartMessage");
-    oldMessageElement?.remove();
     const itemContentElement =
         document.getElementById("addToCart").parentElement.parentElement;
     const messageElement = document.createElement("p");
@@ -91,5 +88,8 @@ function displayMessage(message) {
         messageElement.setAttribute("style", "color: #fbbcbc");
     }
     messageElement.innerHTML = `${message}`;
+    setTimeout(function () {
+        messageElement.remove();
+    }, 2000);
     itemContentElement.append(messageElement);
 }
