@@ -27,6 +27,8 @@ export class AddItemToCart {
         this.itemRepository = itemRepository;
     }
     execute({ product, color, quantity }) {
+        const item = new CartItem({ product, color, quantity });
+
         // If product and color already exist in cart, add quantity
         const cartItems = this.itemRepository.getCartItems();
 
@@ -48,7 +50,6 @@ export class AddItemToCart {
         }
 
         // else add the item to the cart
-        const item = new CartItem({ product, color, quantity });
         this.itemRepository.addItemToCart(item);
     }
 }

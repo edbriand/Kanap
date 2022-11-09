@@ -69,10 +69,27 @@ async function addItem() {
 
     const productId = getIdFromPage();
     const product = await getProduct(productId);
+
     // try to add item to cart
     try {
-        addItemToCart.execute({ product, color, quantity });
+        await addItemToCart.execute({ product, color, quantity });
+        displayMessage("Le produit a été ajouté dans le panier");
     } catch (error) {
-        //console.log(error);
+        displayMessage(`Error: ${error.message}`);
     }
+}
+
+function displayMessage(message) {
+    console.log(message);
+    const oldMessageElement = document.getElementById("addToCartMessage");
+    oldMessageElement?.remove();
+    const itemContentElement =
+        document.getElementById("addToCart").parentElement.parentElement;
+    const messageElement = document.createElement("p");
+    messageElement.setAttribute("id", "addToCartMessage");
+    if (message.includes("Error")) {
+        messageElement.setAttribute("style", "color: #fbbcbc");
+    }
+    messageElement.innerHTML = `${message}`;
+    itemContentElement.append(messageElement);
 }
