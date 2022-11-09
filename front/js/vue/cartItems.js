@@ -12,8 +12,8 @@ function updateCartTotal({ totalQuantity, totalPrice }) {
     const totalQuantityElement = document.getElementById("totalQuantity");
     const totalPriceElement = document.getElementById("totalPrice");
 
-    totalQuantityElement.innerHTML = `${totalQuantity}`;
-    totalPriceElement.innerHTML = `${totalPrice}`;
+    totalQuantityElement.textContent = `${totalQuantity}`;
+    totalPriceElement.textContent = `${totalPrice}`;
 }
 
 // Met à jour la quantité de l'item
@@ -144,7 +144,7 @@ function displayErrorMsg(msg) {
     const msgElements = getMsgElements(msg);
 
     msgElements.forEach(({ element, text }) => {
-        element.innerHTML = text;
+        element.textContent = text;
     });
 }
 

@@ -37,7 +37,7 @@ export async function fillProductPage() {
 function createColor(color) {
     const colorElement = document.createElement("option");
     colorElement.setAttribute("value", color);
-    colorElement.innerHTML = `${color}`;
+    colorElement.textContent = `${color}`;
     return colorElement;
 }
 
@@ -49,9 +49,9 @@ function fillProductInfos({ price, name, img: { src, alt }, desc, colors }) {
     imgElement.setAttribute("alt", alt);
     productImg.appendChild(imgElement);
 
-    document.getElementById("title").innerHTML = `${name}`;
-    document.getElementById("price").innerHTML = `${price}`;
-    document.getElementById("description").innerHTML = `${desc}`;
+    document.getElementById("title").textContent = `${name}`;
+    document.getElementById("price").textContent = `${price}`;
+    document.getElementById("description").textContent = `${desc}`;
 
     const colorsElement = document.getElementById("colors");
 
@@ -87,7 +87,7 @@ function displayMessage(message) {
     if (message.includes("Error")) {
         messageElement.setAttribute("style", "color: #fbbcbc");
     }
-    messageElement.innerHTML = `${message}`;
+    messageElement.textContent = `${message}`;
     setTimeout(function () {
         messageElement.remove();
     }, 2000);

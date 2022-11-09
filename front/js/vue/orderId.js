@@ -12,5 +12,5 @@ export async function showOrderId() {
 
     const orderIdElement = document.getElementById("orderId");
 
-    orderIdElement.innerHTML = orderId;
+    orderIdElement.textContent = orderId;
 }
