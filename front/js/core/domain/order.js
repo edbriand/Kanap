@@ -32,19 +32,19 @@ export class Order {
     validateOrder({ firstName, lastName, address, city, email }) {
         let errorMsg = "";
 
-        if (!this.isValidName(firstName.toUpperCase())) {
+        if (!this.isValidName(firstName.trim().toUpperCase())) {
             errorMsg += "Ce prénom n'est pas valide.";
         }
-        if (!this.isValidName(lastName.toUpperCase())) {
+        if (!this.isValidName(lastName.trim().toUpperCase())) {
             errorMsg += "Ce nom n'est pas valide.";
         }
-        if (!this.isValidAddress(address)) {
+        if (!this.isValidAddress(address.trim())) {
             errorMsg += "Cette addresse n'est pas valide.";
         }
-        if (!this.isValidCity(city.toUpperCase())) {
+        if (!this.isValidCity(city.trim().toUpperCase())) {
             errorMsg += "Cette ville n'est pas valide.";
         }
-        if (!this.isValidEmail(email.toUpperCase())) {
+        if (!this.isValidEmail(email.trim().toUpperCase())) {
             errorMsg += "Cet email n'est pas valide.";
         }
 
