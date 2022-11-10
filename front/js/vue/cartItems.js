@@ -156,6 +156,19 @@ function redirectToConfirmationPage(order) {
     window.location.href = url;
 }
 
+// Affiche un message à l'utilisateur
+function displayMessage(message) {
+    const oldMessageElement = document.getElementById("orderMessage");
+    if (oldMessageElement) return;
+    const cartElement =
+        document.getElementById("order").parentElement.parentElement;
+    const messageElement = document.createElement("p");
+    messageElement.setAttribute("id", "orderMessage");
+    messageElement.setAttribute("style", "color: #fbbcbc");
+    messageElement.textContent = `${message}`;
+    cartElement.append(messageElement);
+}
+
 // Envoie le contenu du formulaire
 async function orderCart(event) {
     event.preventDefault();
@@ -165,6 +178,15 @@ async function orderCart(event) {
     const city = document.getElementById("city").value;
     const email = document.getElementById("email").value;
 
+    // Verify the cart is not empty
+    const items = await getCartItems.execute();
+
+    if (!items[0]) {
+        displayMessage("Erreur: Le panier est vide");
+        return;
+    }
+
+    // Vérifie la validité des champs de la commande
     try {
         const order = await placeOrder.execute({
             firstName,

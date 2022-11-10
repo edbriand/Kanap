@@ -75,7 +75,7 @@ async function addItem() {
         await addItemToCart.execute({ product, color, quantity });
         displayMessage("Le produit a été ajouté dans le panier");
     } catch (error) {
-        displayMessage(`Error: ${error.message}`);
+        displayMessage(`Erreur: ${error.message}`);
     }
 }
 
@@ -90,6 +90,6 @@ function displayMessage(message) {
     messageElement.textContent = `${message}`;
     setTimeout(function () {
         messageElement.remove();
-    }, 2000);
+    }, 3000);
     itemContentElement.append(messageElement);
 }

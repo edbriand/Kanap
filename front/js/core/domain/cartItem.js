@@ -25,25 +25,27 @@ export class CartItem {
 
     validateProduct(product) {
         if (!product) {
-            throw new Error("No product found");
+            throw new Error("Produit non trouvé");
         }
     }
 
     validateQuantity(quantity) {
         // Verify quantity: if 0 or if > 100, throw error
         if (typeof quantity != "number") {
-            throw new Error("Quantity must be a number");
+            throw new Error("La quantité doit être un nombre");
         } else if (quantity > 100) {
-            throw new Error("The maximum quantity is 100");
+            throw new Error("La quantité maximale est de 100");
         } else if (quantity <= 0) {
-            throw new Error("Quantity cannot be 0 or inferior");
+            throw new Error("La quantité ne peut être 0 ou négative");
         }
     }
 
     validateColor(colors, color) {
         // Verify color: if unknown for this product, throw error
         if (!colors.includes(color)) {
-            throw new Error("The color is not a valid color for this product");
+            throw new Error(
+                "La couleur n'est pas une couleur valide pour ce produit"
+            );
         }
     }
 }
